@@ -12,3 +12,7 @@
 * [rules for JS](https://standardjs.com/rules.html)
 * [rules for TS](https://github.com/standard/eslint-config-standard-with-typescript)
 * VS Code eslint extension
+
+## Tests
+* [jest](https://jestjs.io/)
+> use `npx jest --init` for help to create config file
