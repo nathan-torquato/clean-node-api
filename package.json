@@ -26,5 +26,8 @@
     "lint-staged": "^10.2.11",
     "ts-jest": "^26.2.0",
     "typescript": "^3.9.7"
+  },
+  "engines": {
+    "node": "12.x"
   }
 }
