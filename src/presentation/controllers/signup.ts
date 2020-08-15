@@ -1,4 +1,5 @@
 import { HttpResponse, HttpRequest } from '../protocols'
+import { MissingParamError } from '../errors'
 
 interface ISignUpInput {
   name: string
@@ -13,14 +14,14 @@ export class SignUpController {
     if (!name) {
       return {
         statusCode: 400,
-        body: new Error('Missing params: nome'),
+        body: new MissingParamError('name'),
       }
     }
 
     if (!email) {
       return {
         statusCode: 400,
-        body: new Error('Missing params: email'),
+        body: new MissingParamError('email'),
       }
     }
   }
