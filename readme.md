@@ -23,3 +23,6 @@
 ## Tests
 * [jest](https://jestjs.io/)
 > use `npx jest --init` for help to create config file
+* [jest extension](https://marketplace.visualstudio.com/items?itemName=Orta.vscode-jest)
+### Tips
+* sut => system under test
