@@ -1,5 +1,6 @@
 import { HttpResponse, HttpRequest } from '../protocols'
 import { MissingParamError } from '../errors'
+import { badRequest } from '../helpers'
 
 interface ISignUpInput {
   name: string
@@ -12,17 +13,11 @@ export class SignUpController {
   handle (httpRequest: HttpRequest<ISignUpInput>): HttpResponse {
     const { name, email } = httpRequest.body
     if (!name) {
-      return {
-        statusCode: 400,
-        body: new MissingParamError('name'),
-      }
+      return badRequest(new MissingParamError('name'))
     }
 
     if (!email) {
-      return {
-        statusCode: 400,
-        body: new MissingParamError('email'),
-      }
+      return badRequest(new MissingParamError('email'))
     }
   }
 }
