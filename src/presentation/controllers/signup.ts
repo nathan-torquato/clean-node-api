@@ -11,13 +11,11 @@ interface ISignUpInput {
 
 export class SignUpController {
   handle (httpRequest: HttpRequest<ISignUpInput>): HttpResponse {
-    const { name, email } = httpRequest.body
-    if (!name) {
-      return badRequest(new MissingParamError('name'))
-    }
-
-    if (!email) {
-      return badRequest(new MissingParamError('email'))
+    const requiredFields = ['name', 'email', 'password']
+    for (const field of requiredFields) {
+      if (!httpRequest.body[field]) {
+        return badRequest(new MissingParamError(field))
+      }
     }
   }
 }
