@@ -3,7 +3,7 @@ import { SignUpController } from './signup'
 describe('SignUp Controller', () => {
   test('should return 400 if no name is provided', () => {
     const sut = new SignUpController()
-    const httpRequest = {
+    const httpRequest: any = {
       body: {
         email: 'any-email@mail.com',
         password: 'any-password',
@@ -16,7 +16,7 @@ describe('SignUp Controller', () => {
   })
   test('should return 400 if no email is provided', () => {
     const sut = new SignUpController()
-    const httpRequest = {
+    const httpRequest: any = {
       body: {
         name: 'any-name',
         password: 'any-password',

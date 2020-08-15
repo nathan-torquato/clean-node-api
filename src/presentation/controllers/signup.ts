@@ -1,5 +1,14 @@
+import { HttpResponse, HttpRequest } from '../protocols'
+
+interface ISignUpInput {
+  name: string
+  email: string
+  password: string
+  passwordConfirmation: string
+}
+
 export class SignUpController {
-  handle (httpRequest: any): any {
+  handle (httpRequest: HttpRequest<ISignUpInput>): HttpResponse {
     const { name, email } = httpRequest.body
     if (!name) {
       return {
