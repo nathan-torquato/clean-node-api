@@ -1,6 +1,13 @@
 # Notes
 
 ## GIT
+* customised log
+```bash
+[alias]
+	s = !git status -s
+	c = !git add --all && git commit -m
+	l = !git log --pretty=format:'%C(blue)%h%C(red)%d %C(white)%s - %C(cyan)%cn, %C(green)%cr'
+```
 * [commits standard](https://www.conventionalcommits.org/en/v1.0.0/)
 * [hooks](https://github.com/typicode/husky#readme)
 * [run linter againsted staged files only](https://github.com/okonet/lint-staged)
