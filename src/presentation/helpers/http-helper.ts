@@ -1,6 +1,6 @@
-import { HttpResponse } from '../protocols'
+import { IHttpResponse } from '../protocols'
 
-export const badRequest = (error: Error): HttpResponse => ({
+export const badRequest = (error: Error): IHttpResponse => ({
   statusCode: 400,
   body: error,
 })
