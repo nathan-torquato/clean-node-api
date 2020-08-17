@@ -1,14 +1,25 @@
 import { SignUpController } from './signup'
-import { MissingParamError } from '../errors'
+import { MissingParamError, InvalidParamError } from '../errors'
+import { IEmailValidator } from '../protocols'
 
 interface ISutFactory {
   sut: SignUpController
+  emailValidatorStub: IEmailValidator
 }
 
 function makeSut (): ISutFactory {
-  const sut = new SignUpController()
+  class EmailValidatorStub implements IEmailValidator {
+    isValid (): boolean {
+      return true
+    }
+  }
+
+  const emailValidatorStub = new EmailValidatorStub()
+  const sut = new SignUpController(emailValidatorStub)
+
   return {
-    sut
+    sut,
+    emailValidatorStub,
   }
 }
 
@@ -71,5 +82,22 @@ describe('SignUp Controller', () => {
     expect(httpResponse.statusCode).toBe(400)
     expect(httpResponse.body).toBeInstanceOf(MissingParamError)
     expect(httpResponse.body.message.includes('passwordConfirmation')).toBe(true)
+  })
+
+  test('should return 400 if an invalid email is provided', () => {
+    const { sut, emailValidatorStub } = makeSut()
+    jest.spyOn(emailValidatorStub, 'isValid').mockReturnValueOnce(false)
+    const httpRequest: any = {
+      body: {
+        name: 'any-name',
+        email: 'any-email@mail.com',
+        password: 'any-password',
+        passwordConfirmation: 'any-password',
+      }
+    }
+    const httpResponse = sut.handle(httpRequest)
+    expect(httpResponse.statusCode).toBe(400)
+    expect(httpResponse.body).toBeInstanceOf(InvalidParamError)
+    expect(httpResponse.body.message.includes('email')).toBe(true)
   })
 })

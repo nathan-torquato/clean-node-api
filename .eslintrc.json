@@ -8,6 +8,7 @@
     "@typescript-eslint/strict-boolean-expressions": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/method-signature-style": "off",
-    "comma-dangle": "off"
+    "comma-dangle": "off",
+    "padded-blocks": "off"
   }
 }
