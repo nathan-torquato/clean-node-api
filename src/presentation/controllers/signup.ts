@@ -1,5 +1,5 @@
 import { IHttpResponse, IHttpRequest, IController, IEmailValidator } from '../protocols'
-import { MissingParamError, InvalidParamError } from '../errors'
+import { MissingParamError, InvalidParamError, ServerError } from '../errors'
 import { badRequest } from '../helpers'
 
 export class SignUpController implements IController {
@@ -14,9 +14,16 @@ export class SignUpController implements IController {
       }
     }
 
-    const emailIsValid = this.emailValidator.isValid(httpRequest.body.email)
-    if (!emailIsValid) {
-      return badRequest(new InvalidParamError('email'))
+    try {
+      const emailIsValid = this.emailValidator.isValid(httpRequest.body.email)
+      if (!emailIsValid) {
+        return badRequest(new InvalidParamError('email'))
+      }
+    } catch (error) {
+      return {
+        statusCode: 500,
+        body: new ServerError(),
+      }
     }
   }
 }
