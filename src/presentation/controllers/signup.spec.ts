@@ -8,19 +8,31 @@ interface ISutFactory {
 }
 
 function makeSut (): ISutFactory {
-  class EmailValidatorStub implements IEmailValidator {
-    isValid (): boolean {
-      return true
-    }
-  }
-
-  const emailValidatorStub = new EmailValidatorStub()
+  const emailValidatorStub = makeEmailValidatorStub()
   const sut = new SignUpController(emailValidatorStub)
 
   return {
     sut,
     emailValidatorStub,
   }
+}
+
+function makeEmailValidatorStub (): IEmailValidator {
+  class EmailValidatorStub implements IEmailValidator {
+    isValid (): boolean {
+      return true
+    }
+  }
+  return new EmailValidatorStub()
+}
+
+function makeEmailValidatorWithErrorStub (): IEmailValidator {
+  class EmailValidatorStub implements IEmailValidator {
+    isValid (): boolean {
+      throw Error()
+    }
+  }
+  return new EmailValidatorStub()
 }
 
 describe('SignUp Controller', () => {
@@ -117,12 +129,7 @@ describe('SignUp Controller', () => {
   })
 
   test('should return 500 if EmailValidator throws', () => {
-    class EmailValidatorStub implements IEmailValidator {
-      isValid (): boolean {
-        throw Error()
-      }
-    }
-    const emailValidatorStub = new EmailValidatorStub()
+    const emailValidatorStub = makeEmailValidatorWithErrorStub()
     const sut = new SignUpController(emailValidatorStub)
     const httpRequest: any = {
       body: {
