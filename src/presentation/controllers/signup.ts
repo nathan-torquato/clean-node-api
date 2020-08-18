@@ -2,6 +2,12 @@ import { IController, IEmailValidator, IHttpRequest, IHttpResponse } from '../pr
 import { InvalidParamError, MissingParamError } from '../errors'
 import { badRequest, serverError } from '../helpers'
 
+interface ISignUpInput {
+  name: string
+  email: string
+  password: string
+  passwordConfirmation: string
+}
 export class SignUpController implements IController {
 
   constructor (private readonly emailValidator: IEmailValidator) {}
@@ -14,8 +20,13 @@ export class SignUpController implements IController {
       }
     }
 
+    const { email, password, passwordConfirmation } = httpRequest.body as ISignUpInput
+    if (password !== passwordConfirmation) {
+      return badRequest(new InvalidParamError('passwordConfirmation'))
+    }
+
     try {
-      const emailIsValid = this.emailValidator.isValid(httpRequest.body.email)
+      const emailIsValid = this.emailValidator.isValid(email)
       if (!emailIsValid) {
         return badRequest(new InvalidParamError('email'))
       }
