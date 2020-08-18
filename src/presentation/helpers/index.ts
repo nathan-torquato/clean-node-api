@@ -1,1 +1,1 @@
-export { badRequest } from './http-helper'
+export { badRequest, serverError } from './http-helper'
