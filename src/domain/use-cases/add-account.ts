@@ -1,7 +1,7 @@
 import { AccountModel } from '../models'
 
 export interface AddAccount {
-  add (accountInput: AddAccountModel): AccountModel
+  add (accountInput: AddAccountModel): Promise<AccountModel>
 }
 
 export interface AddAccountModel {
