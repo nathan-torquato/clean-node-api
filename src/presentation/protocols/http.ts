@@ -1,8 +1,8 @@
-export interface IHttpRequest<T = any> {
+export interface HttpRequest<T = any> {
   body?: T
 }
 
-export interface IHttpResponse<T = any> {
+export interface HttpResponse<T = any> {
   statusCode: number
   body: T
 }

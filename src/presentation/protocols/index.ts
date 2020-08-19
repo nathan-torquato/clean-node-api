@@ -1,2 +1,2 @@
-export { IHttpRequest, IHttpResponse } from './http'
-export { IController } from './controller'
+export { HttpRequest, HttpResponse } from './http'
+export { Controller } from './controller'

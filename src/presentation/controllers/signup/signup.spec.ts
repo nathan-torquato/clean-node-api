@@ -1,14 +1,14 @@
 import { SignUpController } from './signup'
-import { IEmailValidator, AddAccount, AccountModel, AddAccountModel } from './signup-protocols'
+import { EmailValidator, AddAccount, AccountModel, AddAccountModel } from './signup-protocols'
 import { MissingParamError, InvalidParamError, ServerError } from '../../errors'
 
-interface ISutFactory {
+interface SutFactory {
   sut: SignUpController
-  emailValidatorStub: IEmailValidator
+  emailValidatorStub: EmailValidator
   addAccountStub: AddAccount
 }
 
-function makeSut (): ISutFactory {
+function makeSut (): SutFactory {
   const emailValidatorStub = makeEmailValidatorStub()
   const addAccountStub = makeAddAccountStub()
   const sut = new SignUpController(emailValidatorStub, addAccountStub)
@@ -20,8 +20,8 @@ function makeSut (): ISutFactory {
   }
 }
 
-function makeEmailValidatorStub (): IEmailValidator {
-  class EmailValidatorStub implements IEmailValidator {
+function makeEmailValidatorStub (): EmailValidator {
+  class EmailValidatorStub implements EmailValidator {
     isValid (): boolean {
       return true
     }
