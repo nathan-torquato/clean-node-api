@@ -1,7 +1,6 @@
 import { SignUpController } from './signup'
-import { MissingParamError, InvalidParamError, ServerError } from '../errors'
-import { IEmailValidator } from '../protocols'
-import { AddAccount, AccountModel, AddAccountModel } from '../../domain'
+import { IEmailValidator, AddAccount, AccountModel, AddAccountModel } from './signup-protocols'
+import { MissingParamError, InvalidParamError, ServerError } from '../../errors'
 
 interface ISutFactory {
   sut: SignUpController

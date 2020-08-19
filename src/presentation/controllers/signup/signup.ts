@@ -1,7 +1,6 @@
-import { IController, IEmailValidator, IHttpRequest, IHttpResponse } from '../protocols'
-import { InvalidParamError, MissingParamError } from '../errors'
-import { badRequest, serverError } from '../helpers'
-import { AddAccount } from '../../domain'
+import { IController, IEmailValidator, IHttpRequest, IHttpResponse, AddAccount } from './signup-protocols'
+import { InvalidParamError, MissingParamError } from '../../errors'
+import { badRequest, serverError } from '../../helpers'
 
 interface ISignUpInput {
   name: string
