@@ -1,5 +1,5 @@
 import { DbAddAccount } from './db-add-account'
-import { Encrypter } from '../../protocols'
+import { Encrypter } from './db-add-account-protocols'
 
 const makeEncrypterSut = (): Encrypter => {
   class EncrypterStub implements Encrypter {
