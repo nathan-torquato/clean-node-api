@@ -1,2 +1,2 @@
 export { AddAccount, AddAccountModel, AccountModel } from '../../../domain'
-export { Encrypter } from '../../protocols'
+export { Encrypter, AddAccountRepository } from '../../protocols'
