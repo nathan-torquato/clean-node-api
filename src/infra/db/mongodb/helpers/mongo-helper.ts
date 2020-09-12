@@ -19,4 +19,13 @@ export class MongoHelper {
   static async disconnect (): Promise<void> {
     await MongoHelper.client.close()
   }
+
+  static normaliseId<T> (entity: any): T {
+    const { _id, ...entityWithoutId } = entity
+    return {
+      id: _id,
+      ...entityWithoutId,
+    }
+  }
+
 }
