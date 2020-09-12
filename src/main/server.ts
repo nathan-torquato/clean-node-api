@@ -1,4 +1,3 @@
-import express from 'express'
+import { app } from './config/app'
 
-const app = express()
 app.listen(1234, () => console.log('uhu'))
