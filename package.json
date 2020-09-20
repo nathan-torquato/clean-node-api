@@ -10,7 +10,8 @@
     "test:unit": "npm run test -- --watch -c jest-unit-config.js",
     "test:integration": "npm run test -- --watch -c jest-integration-config.js",
     "test:staged": "npm run test -- --findRelatedTests",
-    "test:ci": "npm run test -- --coverage"
+    "test:ci": "npm run test -- --coverage",
+    "docker-mongo": "docker run -d  --name mongo-on-docker  -p 27888:27017 -e MONGO_INITDB_ROOT_USERNAME=mongoadmin -e MONGO_INITDB_ROOT_PASSWORD=secret mongo:3.6.1"
   },
   "keywords": [],
   "author": "",
