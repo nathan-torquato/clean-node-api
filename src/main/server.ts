@@ -4,7 +4,6 @@ import { config } from './config/env'
 
 MongoHelper.connect(config.mongoUrl)
   .then(() => {
-    app.listen(config.port, () => console.log('uhu'))
+    app.listen(config.port, () => console.log(`Server is listening on port ${config.port}`))
   })
   .catch(console.log)
-  .finally(() => console.log('finally'))
