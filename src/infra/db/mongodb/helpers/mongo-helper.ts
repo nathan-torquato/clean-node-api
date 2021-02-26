@@ -1,7 +1,7 @@
 import { Collection, MongoClient } from 'mongodb'
 
 export class MongoHelper {
-  static client: MongoClient
+  private static client: MongoClient
 
   static async connect (uri: string): Promise<void> {
     if (!MongoHelper.client) {
