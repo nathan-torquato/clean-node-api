@@ -1,5 +1,5 @@
 import { DbAddAccount } from '../../data'
-import { AccountMongoRepository, BcryptAdapter } from '../../infra/'
+import { AccountMongoRepository, BcryptAdapter, LogErrorMongoRepository } from '../../infra/'
 import { Controller, SignUpController } from '../../presentation/'
 import { EmailValidatorAdapter } from '../../utils'
 import { LogControllerDecorator } from '../decorators'
@@ -15,5 +15,6 @@ export function makeSignupController (): Controller {
   )
 
   const controller = new SignUpController(emailValidatorAdapter, dbAddAccount)
-  return new LogControllerDecorator(controller)
+  const logErrorMongoRepository = new LogErrorMongoRepository()
+  return new LogControllerDecorator(controller, logErrorMongoRepository)
 }
