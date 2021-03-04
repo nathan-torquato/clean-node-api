@@ -57,6 +57,12 @@ function makefakeAccount (): HttpResponse {
   }
 }
 
+function makefakeServerError (): HttpResponse {
+  const fakeError = new Error()
+  fakeError.stack = 'any_stack'
+  return serverError(fakeError)
+}
+
 describe('LogControllerDecorator', () => {
   test('should call controller decorator with correct values', async () => {
     const { controller, sut } = makeSut()
@@ -76,10 +82,7 @@ describe('LogControllerDecorator', () => {
 
     const logSpy = jest.spyOn(logErrorRepositoryStub, 'log')
 
-    const fakeError = new Error()
-    fakeError.stack = 'any_stack'
-    const fakeServerError = serverError(fakeError)
-    jest.spyOn(controller, 'handle').mockResolvedValueOnce(fakeServerError)
+    jest.spyOn(controller, 'handle').mockResolvedValueOnce(makefakeServerError())
 
     await sut.handle(makefakeRequest())
     expect(logSpy).toHaveBeenCalledWith('any_stack')
