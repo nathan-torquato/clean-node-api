@@ -1,8 +1,8 @@
-import { DbAddAccount } from '../../data'
-import { AccountMongoRepository, BcryptAdapter, LogErrorMongoRepository } from '../../infra/'
-import { Controller, SignUpController } from '../../presentation/'
-import { EmailValidatorAdapter } from '../../utils'
-import { LogControllerDecorator } from '../decorators'
+import { DbAddAccount } from '../../../data'
+import { AccountMongoRepository, BcryptAdapter, LogErrorMongoRepository } from '../../../infra'
+import { Controller, SignUpController } from '../../../presentation'
+import { EmailValidatorAdapter } from '../../../utils'
+import { LogControllerDecorator } from '../../decorators'
 
 export function makeSignupController (): Controller {
   const emailValidatorAdapter = new EmailValidatorAdapter()
