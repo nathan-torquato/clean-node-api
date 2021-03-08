@@ -1,19 +1,23 @@
 import { InvalidParamError, MissingParamError } from '../../errors'
 import { badRequest, serverError } from '../../helpers'
-import { EmailValidator, HttpRequest } from '../signup/signup-protocols'
+import { Authentication, EmailValidator, HttpRequest } from '../signup/signup-protocols'
 import { LoginController } from './login'
 
 interface SutTypes {
   sut: LoginController
   emailValidator: EmailValidator
+  authentication: Authentication
 }
 
 function makeSut (): SutTypes {
   const emailValidator = makeEmailValidatorStub()
-  const sut = new LoginController(emailValidator)
+  const authentication = makeAuthenticationStub()
+  const sut = new LoginController(emailValidator, authentication)
+
   return {
     sut,
     emailValidator,
+    authentication,
   }
 }
 
@@ -24,6 +28,15 @@ function makeEmailValidatorStub (): EmailValidator {
     }
   }
   return new EmailValidatorStub()
+}
+
+function makeAuthenticationStub (): Authentication {
+  class AuthenticationStub implements Authentication {
+    async login (): Promise<string> {
+      return 'any_token'
+    }
+  }
+  return new AuthenticationStub()
 }
 
 function makefakeRequest (): HttpRequest {
@@ -82,5 +95,14 @@ describe('LoginController', () => {
 
     const httpResponse = await sut.handle(makefakeRequest())
     expect(httpResponse).toEqual(serverError(new Error()))
+  })
+
+  test('should call Authentication with correct values', async () => {
+    const { sut, authentication } = makeSut()
+    const authSpy = jest.spyOn(authentication, 'login')
+    const httpRequest = makefakeRequest()
+
+    await sut.handle(httpRequest)
+    expect(authSpy).toHaveBeenCalledWith(httpRequest.body)
   })
 })
