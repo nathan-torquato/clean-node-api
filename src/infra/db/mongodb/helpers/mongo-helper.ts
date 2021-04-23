@@ -7,8 +7,8 @@ export class MongoHelper {
   static async connect (uri: string): Promise<void> {
     this.uri = uri
 
-    if (!MongoHelper.client) {
-      MongoHelper.client = await MongoClient.connect(uri, {
+    if (!this.client) {
+      this.client = await MongoClient.connect(uri, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       })
@@ -20,11 +20,11 @@ export class MongoHelper {
       await this.connect(this.uri)
     }
 
-    return MongoHelper.client.db().collection<T>(name)
+    return this.client.db().collection<T>(name)
   }
 
   static async disconnect (): Promise<void> {
-    await MongoHelper.client.close()
+    await this.client.close()
     this.client = null
   }
 

@@ -16,15 +16,25 @@ describe('SignUp Routes', () => {
     await MongoHelper.disconnect()
   })
 
-  test('Should return an account on success', async () => {
-    await request(app)
+  test('Should return an account on success', async (done) => {
+    const signupDTO = {
+      name: 'Nathan Torquato',
+      email: 'nathan@torquato.io',
+      password: 'strong_password',
+      passwordConfirmation: 'strong_password',
+    }
+
+    const response = await request(app)
       .post('/api/signup')
-      .send({
-        name: 'Nathan Torquato',
-        email: 'nathan@torquato.io',
-        password: 'strong_password',
-        passwordConfirmation: 'strong_password',
-      })
-      .expect(200)
+      .send(signupDTO)
+
+    expect(response.status).toBe(200)
+    expect(response.body).toBeDefined()
+    expect(response.body.name).toBe(signupDTO.name)
+    expect(response.body.email).toBe(signupDTO.email)
+    expect(response.body.password).not.toBe(signupDTO.password)
+    expect(response.body.password).toBeDefined()
+
+    done()
   })
 })
